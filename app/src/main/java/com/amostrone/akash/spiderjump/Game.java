@@ -59,7 +59,7 @@ public class Game extends View {
 
         //Background Music
         //TODO start the music
-        //ring_background.start();
+        ring_background.start();
 
         if(player_Y==0)player_Y=height/2;
         else if(player_Y!=height/2)player_Y+=2;
