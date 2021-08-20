@@ -9,15 +9,13 @@ leader board.
 
 ## Level 1
 <li> Finished a basic playable game. <b>Done</b>
-<li> Player as green and enemy as red. <b>Done</b>
+<li> Player as space shuttle and enemy as ufo. <b>Done</b>
 <li> Added score and high score. <b>Done</b>
-<li> Added SpiderJump icon. <b>Done</b>
-<li> Added background music. <b>Done</b>
+<li> Added background music and sound effect as player jump. <b>Done</b>
   
 ## Level 2
-<li> Add sound effect as player jump.
-<li> Add splash screen.
-<li> Spawn different type of enemy.
+<li> Add splash screen. <b>Done</b>
+<li> Spawn different type of enemy. <b>Done</b>
 <li> More to go...
 
 ## Submitted by - Akash Jaiswal
