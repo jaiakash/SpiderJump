@@ -27,6 +27,7 @@ public class Game extends View {
     static int score_val = 0;
     static int high_score_val = 0;
 
+    int speed_enemy=4;
     int enemy_X=0;
     int player_Y=0;
 
@@ -69,11 +70,18 @@ public class Game extends View {
             player_Y-=4;
         }
 
+        if(enemy_X==0){
+            enemy_X=getWidth();
+            score_val+=2;
+        }
+        else{
+            enemy_X-=speed_enemy;
+        }
         paint_enemy.setColor(Color.RED);
         enemy.bottom=height-25;
         enemy.top=height-75;
-        enemy.left=width-75;
-        enemy.right=width-25;
+        enemy.left=enemy_X-100;
+        enemy.right=enemy_X-50;
         canvas.drawRect(enemy,paint_enemy);
 
         paint_player.setColor(Color.GREEN);
@@ -97,27 +105,17 @@ public class Game extends View {
 
         canvas.drawText("Score : "+score_val,middle+200,75,paint_score);
 
-        //When enemy and player collide, invert x direction motion
-        //Increase Score
-        //Increase speed
+        //When enemy and player collide, Game Over
         if(Rect.intersects(enemy,player)) {
-            score_val+=2;
-            //dirY*=-1;
+            Toast.makeText(getContext(), "Game Over, Your Score is "+score_val, Toast.LENGTH_SHORT).show();
+            sethigh_score(score_val);
+            score_val=0;
+
+            enemy_X=width;
 
             //Collision music
             //ring_hit.start();
-
-            //Increase Speed
-            //enemy_move_x++;
-            //enemy_move_y++;
         }
-
-        //When enemy and top_bar collide, invert y direction motion
-        if(Rect.intersects(enemy,top_bar)) {
-            //dirY*=-1;
-        }
-
-        //enemy_movement();
 
         postInvalidate();
     }
