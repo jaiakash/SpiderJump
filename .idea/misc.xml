@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.37447916666666664" />
+        <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.37447916666666664" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.37447916666666664" />
+        <entry key="app/src/main/res/drawable/splash_background.xml" value="0.37447916666666664" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.30570652173913043" />
       </map>
     </option>
