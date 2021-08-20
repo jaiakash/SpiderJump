@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         game =new Game(this);
-        game.setBackgroundColor(Color.BLACK);
+        game.setBackgroundResource(R.drawable.background);
         setContentView(game);
     }
 }
