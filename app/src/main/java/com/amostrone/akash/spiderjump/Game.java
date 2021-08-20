@@ -20,12 +20,10 @@ public class Game extends View {
 
     Rect enemy;
     Rect player;
-    Rect top_bar;
 
     Paint paint_enemy;
     Paint paint_player;
     Paint paint_score;
-    Paint paint_top_bar;
 
     static int score_val = -2;
     static int high_score_val = 0;
@@ -46,11 +44,9 @@ public class Game extends View {
         super(context);
         player = new Rect();
         enemy = new Rect();
-        top_bar = new Rect();
         paint_enemy = new Paint();
         paint_player = new Paint();
         paint_score = new Paint();
-        paint_top_bar = new Paint();
     }
 
     @Override
@@ -104,13 +100,6 @@ public class Game extends View {
         plyr.draw(canvas);
         //canvas.drawCircle(50, player_Y-40, 40, paint_player);
         //canvas.drawRect(player,paint_player);
-
-        paint_top_bar.setColor(Color.GRAY);
-        top_bar.bottom=150;
-        top_bar.top=100;
-        top_bar.left=0;
-        top_bar.right=getWidth();
-        canvas.drawRect(top_bar,paint_top_bar);
 
         paint_score.setColor(Color.GRAY);
         paint_score.setTextSize(50);
