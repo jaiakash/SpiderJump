@@ -27,8 +27,10 @@ public class Game extends View {
     static int score_val = 0;
     static int high_score_val = 0;
 
-    static int enemy_X=0;
-    static int player_Y=0;
+    int enemy_X=0;
+    int player_Y=0;
+
+    boolean clicked=false;
 
     //MediaPlayer ring_hit= MediaPlayer.create(getContext(),R.raw.hit);
     MediaPlayer ring_background= MediaPlayer.create(getContext(),R.raw.background);
@@ -43,43 +45,53 @@ public class Game extends View {
         paint_player = new Paint();
         paint_score = new Paint();
         paint_top_bar = new Paint();
-
-        paint_top_bar.setColor(Color.GRAY);
-        top_bar.bottom=150;
-        top_bar.top=100;
-        top_bar.left=0;
-        top_bar.right=getWidth();
-
-        paint_score.setColor(Color.GRAY);
-        paint_score.setTextSize(50);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        //Background Music
-        ring_background.start();
-
         int middle=getWidth()/2;
         int width=getWidth();
         int height=getHeight();
 
+        //Background Music
+        //TODO start the music
+        //ring_background.start();
+
+        if(player_Y==0)player_Y=height;
+        else if(player_Y!=height)player_Y+=2;
+        if(player_Y<height-120){
+            player_Y=height-120;
+            clicked=false;
+        }
+        if(clicked){
+            player_Y-=4;
+        }
+
+        paint_enemy.setColor(Color.RED);
         enemy.bottom=height-25;
         enemy.top=height-75;
-        enemy.left=width+25;
+        enemy.left=width-75;
         enemy.right=width-25;
         canvas.drawRect(enemy,paint_enemy);
 
         paint_player.setColor(Color.GREEN);
-        player.bottom=height-25;
-        player.top=height-75;
-        player.left=10;
-        player.right=50;
+        player.bottom=player_Y-25;
+        player.top=player_Y-75;
+        player.left=40;
+        player.right=90;
         canvas.drawRect(player,paint_player);
 
+        paint_top_bar.setColor(Color.GRAY);
+        top_bar.bottom=150;
+        top_bar.top=100;
+        top_bar.left=0;
+        top_bar.right=getWidth();
         canvas.drawRect(top_bar,paint_top_bar);
 
+        paint_score.setColor(Color.GRAY);
+        paint_score.setTextSize(50);
         high_score_val=gethigh_score();
         canvas.drawText("High Score : "+high_score_val,middle-400,75,paint_score);
 
@@ -146,7 +158,7 @@ public class Game extends View {
         switch (maskedAction) {
 
             case MotionEvent.ACTION_DOWN:
-                //player_pos=(int) event.getX();
+                clicked=true;
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
             case MotionEvent.ACTION_MOVE:
