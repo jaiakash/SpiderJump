@@ -24,10 +24,10 @@ public class Game extends View {
     Paint paint_score;
     Paint paint_top_bar;
 
-    static int score_val = 0;
+    static int score_val = -2;
     static int high_score_val = 0;
 
-    int speed_enemy=4;
+    int speed_enemy=2;
     int enemy_X=0;
     int player_Y=0;
 
@@ -60,26 +60,27 @@ public class Game extends View {
         //TODO start the music
         ring_background.start();
 
-        if(player_Y==0)player_Y=height;
-        else if(player_Y!=height)player_Y+=2;
-        if(player_Y<height-120){
-            player_Y=height-120;
+        if(player_Y==0)player_Y=height/2;
+        else if(player_Y!=height/2)player_Y+=2;
+        if(player_Y<height/2-120){
+            player_Y=height/2-120;
             clicked=false;
         }
         if(clicked){
             player_Y-=4;
         }
 
-        if(enemy_X==0){
+        if(enemy_X<0){
             enemy_X=getWidth();
             score_val+=2;
+            speed_enemy++;
         }
         else{
             enemy_X-=speed_enemy;
         }
         paint_enemy.setColor(Color.RED);
-        enemy.bottom=height-25;
-        enemy.top=height-75;
+        enemy.bottom=height/2-25;
+        enemy.top=height/2-75;
         enemy.left=enemy_X-100;
         enemy.right=enemy_X-50;
         canvas.drawRect(enemy,paint_enemy);
@@ -109,6 +110,7 @@ public class Game extends View {
         if(Rect.intersects(enemy,player)) {
             Toast.makeText(getContext(), "Game Over, Your Score is "+score_val, Toast.LENGTH_SHORT).show();
             sethigh_score(score_val);
+            speed_enemy=2;
             score_val=0;
 
             enemy_X=width;
