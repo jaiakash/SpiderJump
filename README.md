@@ -8,10 +8,16 @@ leader board.
 (To visualize better, this is similar to chrome Dinosaur game)
 
 ## Level 1
-<li> Finished a basic playable game.
-<li> Player as green and enemy as red.
-<li> Added score and high score.
-<li> Added SpiderJump icon.
-<li> Added background music.
+<li> Finished a basic playable game. <b>Done</b>
+<li> Player as green and enemy as red. <b>Done</b>
+<li> Added score and high score. <b>Done</b>
+<li> Added SpiderJump icon. <b>Done</b>
+<li> Added background music. <b>Done</b>
+  
+## Level 2
+<li> Add sound effect as player jump.
+<li> Add splash screen.
+<li> Spawn different type of enemy.
+<li> More to go...
 
 ## Submitted by - Akash Jaiswal
