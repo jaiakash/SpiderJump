@@ -8,10 +8,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Game extends View {
 
@@ -32,6 +35,8 @@ public class Game extends View {
     int player_Y=0;
 
     boolean clicked=false;
+    int[] drawable_enemy_ship = {R.drawable.ship1, R.drawable.ship2, R.drawable.ship3, R.drawable.ship4, R.drawable.ship5};
+    int random_enemy_drawable = ThreadLocalRandom.current().nextInt(0, 4 + 1);
 
     //MediaPlayer ring_hit= MediaPlayer.create(getContext(),R.raw.hit);
     MediaPlayer ring_background= MediaPlayer.create(getContext(),R.raw.background);
@@ -72,6 +77,7 @@ public class Game extends View {
 
         if(enemy_X<0){
             enemy_X=getWidth();
+            random_enemy_drawable= ThreadLocalRandom.current().nextInt(0, 4 + 1);
             score_val+=2;
             speed_enemy++;
         }
@@ -83,14 +89,20 @@ public class Game extends View {
         enemy.top=height/2-85;
         enemy.left=enemy_X-110;
         enemy.right=enemy_X-40;
-        canvas.drawRect(enemy,paint_enemy);
+        Drawable enmy = getResources().getDrawable(drawable_enemy_ship[random_enemy_drawable], null);
+        enmy.setBounds(enemy.left, enemy.top, enemy.right, enemy.bottom);
+        enmy.draw(canvas);
+        //canvas.drawRect(enemy,paint_enemy);
 
         paint_player.setColor(Color.GREEN);
         player.bottom=player_Y-15;
         player.top=player_Y-85;
         player.left=30;
         player.right=100;
-        canvas.drawCircle(50, player_Y-40, 40, paint_player);
+        Drawable plyr = getResources().getDrawable(R.drawable.player, null);
+        plyr.setBounds(20, player_Y-80, 150, player_Y);
+        plyr.draw(canvas);
+        //canvas.drawCircle(50, player_Y-40, 40, paint_player);
         //canvas.drawRect(player,paint_player);
 
         paint_top_bar.setColor(Color.GRAY);
