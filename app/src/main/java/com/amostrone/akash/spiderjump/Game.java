@@ -62,8 +62,8 @@ public class Game extends View {
 
         if(player_Y==0)player_Y=height/2;
         else if(player_Y!=height/2)player_Y+=2;
-        if(player_Y<height/2-120){
-            player_Y=height/2-120;
+        if(player_Y<height/2-160){
+            player_Y=height/2-160;
             clicked=false;
         }
         if(clicked){
@@ -79,18 +79,19 @@ public class Game extends View {
             enemy_X-=speed_enemy;
         }
         paint_enemy.setColor(Color.RED);
-        enemy.bottom=height/2-25;
-        enemy.top=height/2-75;
-        enemy.left=enemy_X-100;
-        enemy.right=enemy_X-50;
+        enemy.bottom=height/2-15;
+        enemy.top=height/2-85;
+        enemy.left=enemy_X-110;
+        enemy.right=enemy_X-40;
         canvas.drawRect(enemy,paint_enemy);
 
         paint_player.setColor(Color.GREEN);
-        player.bottom=player_Y-25;
-        player.top=player_Y-75;
-        player.left=40;
-        player.right=90;
-        canvas.drawRect(player,paint_player);
+        player.bottom=player_Y-15;
+        player.top=player_Y-85;
+        player.left=30;
+        player.right=100;
+        canvas.drawCircle(50, player_Y-40, 40, paint_player);
+        //canvas.drawRect(player,paint_player);
 
         paint_top_bar.setColor(Color.GRAY);
         top_bar.bottom=150;
