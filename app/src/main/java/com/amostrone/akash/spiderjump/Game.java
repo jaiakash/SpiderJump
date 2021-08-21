@@ -2,7 +2,9 @@ package com.amostrone.akash.spiderjump;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -36,6 +38,7 @@ public class Game extends View {
     int player_jump=4;
 
     boolean clicked=false;
+    boolean isPaused=false;
     int[] drawable_enemy_ship = {R.drawable.ship1, R.drawable.ship2, R.drawable.ship3, R.drawable.ship4, R.drawable.ship5};
     int random_enemy_drawable = ThreadLocalRandom.current().nextInt(0, 4 + 1);
     int randSpawn = ThreadLocalRandom.current().nextInt(-2,2+1);
@@ -80,7 +83,7 @@ public class Game extends View {
             player_Y=height/2+190;
             clicked=false;
         }
-        if(clicked){
+        if(clicked && !isPaused){
             player_Y+=player_jump;
         }
 
@@ -107,6 +110,7 @@ public class Game extends View {
             v.vibrate(100);
         }
         else{
+            if(!isPaused)
             enemy_X-=speed_enemy;
         }
         paint_enemy.setColor(Color.RED);
@@ -127,7 +131,7 @@ public class Game extends View {
 
         //When enemy and player collide, Game Over
         if(Rect.intersects(enemy,player)) {
-            Toast.makeText(getContext(), "Game Over, Your Score is "+score_val, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Game Over, Your Score is "+score_val, Toast.LENGTH_SHORT).show();
             sethigh_score(score_val);
             speed_enemy=2;
             score_val=0;
@@ -136,6 +140,30 @@ public class Game extends View {
             v.vibrate(400);
 
             enemy_X=width;
+            isPaused=true;
+
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Game Over")
+                    .setMessage("Your Score is "+score_val)
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton("Restart", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            clicked=false;
+                            isPaused=false;
+                        }
+                    })
+
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            MainActivity mn = new MainActivity();
+                            mn.exit();
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
 
             //Collision music
             //ring_hit.start();

@@ -17,4 +17,9 @@ public class MainActivity extends AppCompatActivity {
         game.setBackgroundResource(R.drawable.background);
         setContentView(game);
     }
+
+    public void exit() {
+        finishAffinity();
+        System.exit(0);
+    }
 }
