@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -97,16 +98,20 @@ public class Game extends View {
         if(enemy_X<0){
             enemy_X=getWidth();
             random_enemy_drawable= ThreadLocalRandom.current().nextInt(0, 4 + 1);
-            randSpawn = ThreadLocalRandom.current().nextInt(-80,80+1);
+            randSpawn = ThreadLocalRandom.current().nextInt(-12,12+1);
             score_val+=2;
             speed_enemy++;
+
+            // Get instance of Vibrator from current Context
+            Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(100);
         }
         else{
             enemy_X-=speed_enemy;
         }
         paint_enemy.setColor(Color.RED);
-        enemy.bottom=height/2-15+randSpawn;
-        enemy.top=height/2-85+randSpawn;
+        enemy.bottom=height/2-15+randSpawn*10;
+        enemy.top=height/2-85+randSpawn*10;
         enemy.left=enemy_X-110;
         enemy.right=enemy_X-40;
         Drawable enmy = getResources().getDrawable(drawable_enemy_ship[random_enemy_drawable], null);
@@ -126,6 +131,9 @@ public class Game extends View {
             sethigh_score(score_val);
             speed_enemy=2;
             score_val=0;
+
+            Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(400);
 
             enemy_X=width;
 
