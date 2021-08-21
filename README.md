@@ -15,7 +15,8 @@ leader board.
   
 ## Level 2
 <li> Add splash screen. <b>Done</b>
-<li> Spawn different type of enemy. <b>Done</b>
-<li> More to go...
+<li> Spawn different type of enemy (5 different UFOs) <b>Done</b>
+<li> Player can move up and down. Touch right to move up and left to move down. <b>Done</b>
+<li> Enemy spawns randomly at y-axis. <b>Done</b>
 
 ## Submitted by - Akash Jaiswal
