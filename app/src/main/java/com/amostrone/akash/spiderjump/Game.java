@@ -32,6 +32,7 @@ public class Game extends View {
     int speed_enemy=2;
     int enemy_X=0;
     int player_Y=0;
+    int player_jump=4;
 
     boolean clicked=false;
     int[] drawable_enemy_ship = {R.drawable.ship1, R.drawable.ship2, R.drawable.ship3, R.drawable.ship4, R.drawable.ship5};
@@ -46,6 +47,12 @@ public class Game extends View {
         paint_enemy = new Paint();
         paint_player = new Paint();
         paint_score = new Paint();
+
+        paint_score.setAntiAlias(true);
+        paint_score.setUnderlineText(true);
+        paint_score.setFakeBoldText(true);
+        Typeface typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD);
+        paint_score.setTypeface(typeface);
     }
 
     @Override
@@ -61,13 +68,18 @@ public class Game extends View {
         ring_background.start();
 
         if(player_Y==0)player_Y=height/2;
-        else if(player_Y!=height/2)player_Y+=2;
+        else if(player_Y<height/2)player_Y+=2;
+        else if(player_Y>height/2)player_Y-=2;
         if(player_Y<height/2-160){
             player_Y=height/2-160;
             clicked=false;
         }
+        if(player_Y>height/2+160){
+            player_Y=height/2+160;
+            clicked=false;
+        }
         if(clicked){
-            player_Y-=4;
+            player_Y+=player_jump;
         }
 
         if(enemy_X<0){
@@ -103,11 +115,6 @@ public class Game extends View {
         paint_score.setColor(Color.RED);
         paint_score.setTextSize(45);
         high_score_val=gethigh_score();
-        paint_score.setAntiAlias(true);
-        paint_score.setUnderlineText(true);
-        paint_score.setFakeBoldText(true);
-        Typeface typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD);
-        paint_score.setTypeface(typeface);
         canvas.drawText("High Score : "+high_score_val,middle-400,75,paint_score);
         canvas.drawText("Score : "+score_val,middle+200,75,paint_score);
 
@@ -164,6 +171,12 @@ public class Game extends View {
 
             case MotionEvent.ACTION_DOWN:
                 clicked=true;
+                if(event.getX()<getWidth()/2){
+                    player_jump=4;
+                }
+                else {
+                    player_jump=-4;
+                }
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
             case MotionEvent.ACTION_MOVE:
