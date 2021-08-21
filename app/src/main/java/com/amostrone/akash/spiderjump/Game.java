@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.view.MotionEvent;
@@ -36,9 +37,7 @@ public class Game extends View {
     int[] drawable_enemy_ship = {R.drawable.ship1, R.drawable.ship2, R.drawable.ship3, R.drawable.ship4, R.drawable.ship5};
     int random_enemy_drawable = ThreadLocalRandom.current().nextInt(0, 4 + 1);
 
-    //MediaPlayer ring_hit= MediaPlayer.create(getContext(),R.raw.hit);
     MediaPlayer ring_background= MediaPlayer.create(getContext(),R.raw.background);
-    //MediaPlayer ring_gameover= MediaPlayer.create(getContext(),R.raw.gameover);
 
     public Game(Context context) {
         super(context);
@@ -101,11 +100,15 @@ public class Game extends View {
         //canvas.drawCircle(50, player_Y-40, 40, paint_player);
         //canvas.drawRect(player,paint_player);
 
-        paint_score.setColor(Color.GRAY);
-        paint_score.setTextSize(50);
+        paint_score.setColor(Color.RED);
+        paint_score.setTextSize(45);
         high_score_val=gethigh_score();
+        paint_score.setAntiAlias(true);
+        paint_score.setUnderlineText(true);
+        paint_score.setFakeBoldText(true);
+        Typeface typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD);
+        paint_score.setTypeface(typeface);
         canvas.drawText("High Score : "+high_score_val,middle-400,75,paint_score);
-
         canvas.drawText("Score : "+score_val,middle+200,75,paint_score);
 
         //When enemy and player collide, Game Over
